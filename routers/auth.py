@@ -10,7 +10,7 @@ from starlette import status
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 
-router=APIRouter()
+router=APIRouter(prefix='/auth', tags=['auth'])
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = "xlntuzhvi3uqri9v3pbehinzk36oljp3"
 ALGORITHM = "HS256"

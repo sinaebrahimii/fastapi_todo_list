@@ -14,7 +14,7 @@ router=APIRouter(prefix='/auth', tags=['auth'])
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = "xlntuzhvi3uqri9v3pbehinzk36oljp3"
 ALGORITHM = "HS256"
-oauth2_bearer = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_bearer = OAuth2PasswordBearer(tokenUrl="auth/token")
 
 def get_db():
     db=SessionLocal()

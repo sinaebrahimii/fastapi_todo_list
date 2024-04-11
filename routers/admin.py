@@ -25,5 +25,5 @@ user_dependency= Annotated[dict , Depends(get_current_user)]
 @router.get("/todos", status_code=status.HTTP_200_OK)
 async def get_todos(user:user_dependency,db:db_dependency):
     if user is None or user.get('user_role')!= 'admin':
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Failed to authenticate")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Authentication failed")
     return db.query(Todos).all()

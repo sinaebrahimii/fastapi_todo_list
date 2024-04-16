@@ -25,7 +25,9 @@ def get_db():
 
 db_dependency = Annotated[Session , Depends(get_db)]
 
+
 def authenticate_user(username: str, password: str,db):
+    #cheks and valodate entered username and password
     user=db.query(Users).filter(Users.username==username).first()
     if not user:
         return False
@@ -71,6 +73,7 @@ async def get_users(db:db_dependency):
 
 @router.post("/users",status_code=status.HTTP_201_CREATED)
 async def create_users(db:db_dependency,create_user_request:CreateUserRequest):
+    #creates a user and hashes the password
     create_user_model=Users(
         username=create_user_request.username,
         email=create_user_request.email,
@@ -85,6 +88,7 @@ async def create_users(db:db_dependency,create_user_request:CreateUserRequest):
 @router.post("/token",response_model=Token)
 async def login_for_access_token(form_data:Annotated[OAuth2PasswordRequestForm,Depends()],
                                  db:db_dependency):
+    #uf user and pass is ok returns user or else returns false
     user= authenticate_user(form_data.username, form_data.password,db)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
